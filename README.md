@@ -13,8 +13,7 @@ An intelligent data processing platform that uses machine learning to predict ef
 
 - **Python 3.8+** (recommended: Python 3.9 or 3.10)
 - **Git** for cloning the repository
-- **Microsoft 365 Account** (for notifications)
-- **n8n Instance** (optional, for automation)
+- **Microsoft 365 Account** (optional, for notifications)
 
 ### 1. Clone the Repository
 
@@ -55,27 +54,26 @@ copy env_example.txt .env
 cp env_example.txt .env
 ```
 
-Edit the `.env` file with your configuration:
+Edit the `.env` file with your configuration (optional):
 
 ```env
-# Microsoft 365 Graph API Configuration
+# Microsoft 365 Graph API Configuration (Optional - for notifications)
 TENANT_ID=your_tenant_id_here
 CLIENT_ID=your_client_id_here
 CLIENT_SECRET=your_client_secret_here
-
-# n8n Configuration
-N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/effort-expense
 
 # Optional: Override default values
 EFFORT_EXPENSE_LIMIT=30
 MISSING_VALUE_THRESHOLD=0.1
 ```
 
+**Note**: You can run the application without configuring Microsoft 365. The ML prediction and data analysis features will work without any external integrations.
+
 ### 5. Run the Application
 
 ```bash
 # Start the application
-python main.py
+streamlit run .\streamlit_app.py
 ```
 
 The application will be available at: **http://localhost:8501**
@@ -203,25 +201,25 @@ notepad .env
 nano .env
 ```
 
-**Required Configuration:**
+**Optional Configuration:**
 ```env
-# Microsoft 365 (for notifications)
+# Microsoft 365 (optional - for notifications)
 TENANT_ID=your_tenant_id_here
 CLIENT_ID=your_client_id_here
 CLIENT_SECRET=your_client_secret_here
 
-# n8n (for automation)
-N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/effort-expense
+# Override default values
+EFFORT_EXPENSE_LIMIT=30
+MISSING_VALUE_THRESHOLD=0.1
 ```
+
+**Note**: The application works without any configuration. Microsoft 365 integration is optional and only needed for sending notifications.
 
 ### Step 6: Run Application
 
 ```bash
 # Start the application
-python main.py
-
-# Alternative: Direct Streamlit
-streamlit run streamlit_app.py
+streamlit run .\streamlit_app.py
 ```
 
 **Expected Output:**
@@ -292,24 +290,12 @@ effortDate,effortExpense,effortTimeCosts,billingRate_hourlyRate,msg_JobTitle,Ema
    - Copy "Application (client) ID"
    - Copy "Directory (tenant) ID"
 
-### n8n Setup (Optional)
+### n8n Setup (Optional - Future Feature)
 
-1. **Install n8n**
-   ```bash
-   npm install -g n8n
-   n8n start
-   ```
-
-2. **Create Webhook Workflow**
-   - Open n8n interface (http://localhost:5678)
-   - Create new workflow
-   - Add "Webhook" node
-   - Configure webhook URL
-   - Add Microsoft 365 nodes
-
-3. **Configure Webhook URL**
-   - Copy webhook URL from n8n
-   - Add to `.env` file
+n8n integration is planned for future releases. Currently, the application focuses on:
+- Machine learning predictions
+- Data analysis and visualization
+- Microsoft 365 notifications (optional)
 
 ---
 
@@ -346,17 +332,19 @@ effortDate,effortExpense,effortTimeCosts,billingRate_hourlyRate,msg_JobTitle,Ema
    - Statistical summaries
    - Trend analysis
 
-### 3. Notifications
+### 3. Notifications (Optional)
 
 1. **Configure Notifications**
    - Enable/disable email notifications
    - Enable/disable Teams notifications
-   - Set n8n webhook URL
+   - Requires Microsoft 365 configuration
 
 2. **Send Notifications**
    - Review notification preview
    - Click "Send Notifications"
    - Monitor delivery status
+
+**Note**: Notifications require Microsoft 365 setup. The ML prediction and analysis features work without notifications.
 
 ### 4. Reports
 
@@ -398,6 +386,7 @@ lsof -ti:8501 | xargs kill -9
 - Check tenant ID, client ID, and client secret
 - Ensure application has required permissions
 - Verify application is registered in Azure AD
+- **Note**: This is optional - you can use the app without Microsoft 365
 
 **4. "File upload errors"**
 - Ensure file is Excel (.xlsx, .xls) or CSV format
@@ -408,6 +397,10 @@ lsof -ti:8501 | xargs kill -9
 - Ensure sufficient data (minimum 10 rows)
 - Check data quality (missing values < 50%)
 - Verify all required columns are present
+
+**6. "Port 8501 already in use"**
+- Kill existing Streamlit process
+- Use different port: `streamlit run .\streamlit_app.py --server.port 8502`
 
 ### Logs
 
