@@ -1,305 +1,535 @@
-# 📊 Effort Expense Management
+# AI-Powered Data Intelligence Platform
 
-A comprehensive system for predicting effort expenses and automating notifications using business rules instead of ML models. This system processes Excel/CSV files, identifies missing or over-limit effort expenses, and sends automated notifications via Microsoft 365 and n8n.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io)
+[![CatBoost](https://img.shields.io/badge/CatBoost-ML-green.svg)](https://catboost.ai)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## 🌟 Features
-
-- **📁 File Upload Support**: Upload Excel (.xlsx, .xls) or CSV files
-- **🔍 Data Analysis**: Comprehensive analysis of effort expense data
-- **📊 Business Rules Prediction**: Predict missing effort expenses using business logic
-- **🔔 Automated Notifications**: Send emails and Teams notifications
-- **🔗 n8n Integration**: Seamless integration with n8n workflows
-- **📈 Interactive Dashboard**: Beautiful Streamlit-based web interface
-- **📋 Reporting**: Generate detailed reports and exports
+An intelligent data processing platform that uses machine learning to predict effort expenses, identify data quality issues, and automate notifications through Microsoft 365 and n8n workflows.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.8 or higher
-- Microsoft 365 account (for notifications)
-- n8n instance (optional, for advanced automation)
+- **Python 3.8+** (recommended: Python 3.9 or 3.10)
+- **Git** for cloning the repository
+- **Microsoft 365 Account** (for notifications)
+- **n8n Instance** (optional, for automation)
 
-### Installation
+### 1. Clone the Repository
 
-1. **Clone or download the project**
-   ```bash
-   git clone <repository-url>
-   cd validation_n8n
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/ikiru1372k2/tech_interupt_final_project.git
 
-2. **Run the setup script**
-   
-   **Windows:**
-   ```cmd
-   run.bat
-   ```
-   
-   **Linux/Mac:**
-   ```bash
-   chmod +x run.sh
-   ./run.sh
-   ```
+# Navigate to the project directory
+cd tech_interupt_final_project
+```
 
-3. **Manual setup (if needed)**
-   ```bash
-   # Create virtual environment
-   python -m venv venv
-   
-   # Activate virtual environment
-   # Windows:
-   venv\Scripts\activate
-   # Linux/Mac:
-   source venv/bin/activate
-   
-   # Install dependencies
-   pip install -r requirements.txt
-   
-   # Run the application
-   python main.py
-   ```
+### 2. Create Virtual Environment
 
-### Configuration
+```bash
+# Create virtual environment
+python -m venv venv
 
-1. **Copy environment template**
-   ```bash
-   copy env_example.txt .env
-   ```
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+```
 
-2. **Configure your settings in `.env`**
-   ```env
-   # Microsoft 365 Graph API Configuration
-   TENANT_ID=your_tenant_id_here
-   CLIENT_ID=your_client_id_here
-   CLIENT_SECRET=your_client_secret_here
-   
-   # n8n Configuration
-   N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/effort-expense
-   
-   # Optional: Override default values
-   EFFORT_EXPENSE_LIMIT=30
-   MISSING_VALUE_THRESHOLD=0.1
-   ```
+### 3. Install Dependencies
 
-## 📖 Usage
+```bash
+# Install required packages
+pip install -r requirements.txt
+```
 
-### 1. Upload Data
+### 4. Configure Environment
 
-1. Open the web application (usually at `http://localhost:8501`)
-2. Go to the **"Upload Data"** tab
-3. Upload your Excel or CSV file containing effort expense data
-4. Configure the effort limit and missing value threshold in the sidebar
-5. Click **"Process Data"** to analyze your data
+```bash
+# Copy environment template
+copy env_example.txt .env
+# Linux/Mac:
+cp env_example.txt .env
+```
 
-### 2. View Analysis
+Edit the `.env` file with your configuration:
 
-1. Go to the **"Analysis"** tab
-2. Select different analysis types:
-   - **Effort Distribution**: View distribution of effort expenses
-   - **Missing Data Analysis**: Analyze missing data patterns
-   - **Over-Limit Analysis**: Identify over-limit entries
-   - **Time Series Analysis**: View trends over time
+```env
+# Microsoft 365 Graph API Configuration
+TENANT_ID=your_tenant_id_here
+CLIENT_ID=your_client_id_here
+CLIENT_SECRET=your_client_secret_here
 
-### 3. Send Notifications
+# n8n Configuration
+N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/effort-expense
 
-1. Go to the **"Notifications"** tab
-2. Review the notification preview
-3. Configure notification settings:
-   - Enable/disable email notifications
-   - Enable/disable Teams notifications
-   - Set n8n webhook URL
-4. Click **"Send All Notifications"** to send alerts
+# Optional: Override default values
+EFFORT_EXPENSE_LIMIT=30
+MISSING_VALUE_THRESHOLD=0.1
+```
 
-### 4. Generate Reports
+### 5. Run the Application
 
-1. Go to the **"Reports"** tab
-2. Select report type:
-   - **Summary Report**: High-level overview
-   - **Detailed Analysis**: Comprehensive data analysis
-   - **Notification Report**: Notification details
-   - **Raw Data Export**: Export processed data
-3. Choose export format (Excel, CSV, JSON)
-4. Click **"Generate Report"** to download
+```bash
+# Start the application
+python main.py
+```
+
+The application will be available at: **http://localhost:8501**
+
+---
+
+## 📋 Features
+
+### 🤖 Machine Learning
+- **CatBoost Regression** for effort expense prediction
+- **Automatic missing value handling**
+- **Categorical feature support** (no encoding required)
+- **Prediction constraints** (never exceeds 30 hours)
+- **Model persistence** and versioning
+
+### 📊 Data Analysis
+- **Interactive visualizations** with Plotly
+- **Missing data analysis**
+- **Over-limit detection**
+- **Time series analysis**
+- **Feature importance ranking**
+
+### 🔔 Notifications
+- **Microsoft 365 Email** integration
+- **Microsoft Teams** notifications
+- **n8n workflow** automation
+- **Customizable templates**
+
+### 📈 Reporting
+- **Excel/CSV export**
+- **JSON data export**
+- **Summary reports**
+- **Detailed analytics**
+
+---
+
+## 🛠️ Installation Guide
+
+### Step 1: System Requirements
+
+**Minimum Requirements:**
+- **OS**: Windows 10+, macOS 10.14+, or Linux
+- **RAM**: 4GB (8GB recommended)
+- **Storage**: 1GB free space
+- **Python**: 3.8 or higher
+
+**Check Python Version:**
+```bash
+python --version
+# Should show Python 3.8 or higher
+```
+
+### Step 2: Clone Repository
+
+```bash
+# Clone the repository
+git clone https://github.com/ikiru1372k2/tech_interupt_final_project.git
+
+# Navigate to project directory
+cd tech_interupt_final_project
+
+# Verify files are present
+ls
+# Should show: main.py, streamlit_app.py, requirements.txt, etc.
+```
+
+### Step 3: Virtual Environment Setup
+
+**Why use virtual environment?**
+- Isolates project dependencies
+- Prevents conflicts with other Python projects
+- Ensures reproducible builds
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows Command Prompt:
+venv\Scripts\activate.bat
+# Windows PowerShell:
+venv\Scripts\Activate.ps1
+# Linux/Mac:
+source venv/bin/activate
+
+# Verify activation (should show venv path)
+where python
+# Windows: C:\path\to\project\venv\Scripts\python.exe
+# Linux/Mac: /path/to/project/venv/bin/python
+```
+
+### Step 4: Install Dependencies
+
+```bash
+# Upgrade pip first
+python -m pip install --upgrade pip
+
+# Install all required packages
+pip install -r requirements.txt
+
+# Verify installation
+pip list
+```
+
+**Key Dependencies:**
+- `streamlit` - Web application framework
+- `catboost` - Machine learning model
+- `pandas` - Data manipulation
+- `numpy` - Numerical computing
+- `plotly` - Interactive visualizations
+- `scikit-learn` - ML utilities
+- `openpyxl` - Excel file support
+
+### Step 5: Configuration Setup
+
+```bash
+# Copy environment template
+copy env_example.txt .env
+# Linux/Mac:
+cp env_example.txt .env
+
+# Edit configuration file
+notepad .env
+# Linux/Mac:
+nano .env
+```
+
+**Required Configuration:**
+```env
+# Microsoft 365 (for notifications)
+TENANT_ID=your_tenant_id_here
+CLIENT_ID=your_client_id_here
+CLIENT_SECRET=your_client_secret_here
+
+# n8n (for automation)
+N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/effort-expense
+```
+
+### Step 6: Run Application
+
+```bash
+# Start the application
+python main.py
+
+# Alternative: Direct Streamlit
+streamlit run streamlit_app.py
+```
+
+**Expected Output:**
+```
+You can now view your Streamlit app in your browser.
+
+Local URL: http://localhost:8501
+Network URL: http://192.168.1.100:8501
+```
+
+---
+
+## 📊 Data Format
+
+### Required Columns
+
+| Column | Type | Description | Example |
+|--------|------|-------------|---------|
+| `effortExpense` | Numeric | Effort expense in hours (target) | 25.5 |
+| `effortDate` | Date | Date of effort entry | 2025-01-15 |
+| `effortTimeCosts` | Numeric | Time-related costs | 127.63 |
+| `billingRate_hourlyRate` | Numeric | Hourly billing rate | 136.55 |
+
+### Optional Columns (for better predictions)
+
+| Column | Type | Description | Example |
+|--------|------|-------------|---------|
+| `msg_JobTitle` | Text | Job title | "Senior Consultant" |
+| `msg_Community` | Text | Team/community | "Data Analytics" |
+| `taskType` | Text | Task type | "Development" |
+| `Email` | Text | User email | "user@company.com" |
+| `name_P` | Text | Project name | "Project Alpha" |
+
+### Sample Data
+
+```csv
+effortDate,effortExpense,effortTimeCosts,billingRate_hourlyRate,msg_JobTitle,Email
+2025-01-15,25.5,127.63,136.55,Senior Consultant,user@company.com
+2025-01-16,,210.36,225.10,Principal Consultant,manager@company.com
+2025-01-17,35.0,150.00,200.00,Consultant,senior@company.com
+```
+
+---
 
 ## 🔧 Configuration
 
 ### Microsoft 365 Setup
 
-1. **Register an application in Azure AD**
+1. **Register Application in Azure AD**
    - Go to [Azure Portal](https://portal.azure.com)
    - Navigate to "Azure Active Directory" > "App registrations"
    - Click "New registration"
-   - Fill in the application details
+   - Fill in application details
 
-2. **Configure API permissions**
+2. **Configure API Permissions**
    - Go to "API permissions" in your app registration
-   - Add the following Microsoft Graph permissions:
+   - Add Microsoft Graph permissions:
      - `Mail.Send` (Application)
      - `ChannelMessage.Send` (Application)
-     - `Chat.ReadWrite` (Application)
      - `User.Read` (Application)
 
-3. **Create client secret**
+3. **Create Client Secret**
    - Go to "Certificates & secrets"
    - Click "New client secret"
    - Copy the secret value
 
-4. **Get tenant and client IDs**
-   - Copy the "Application (client) ID" and "Directory (tenant) ID"
+4. **Get IDs**
+   - Copy "Application (client) ID"
+   - Copy "Directory (tenant) ID"
 
-### n8n Setup
+### n8n Setup (Optional)
 
-1. **Install n8n** (if not already installed)
+1. **Install n8n**
    ```bash
    npm install -g n8n
    n8n start
    ```
 
-2. **Create webhook workflow**
-   - Open n8n interface (usually at `http://localhost:5678`)
-   - Create a new workflow
-   - Add a "Webhook" node
-   - Configure the webhook URL
-   - Add Microsoft 365 nodes for email/Teams integration
+2. **Create Webhook Workflow**
+   - Open n8n interface (http://localhost:5678)
+   - Create new workflow
+   - Add "Webhook" node
+   - Configure webhook URL
+   - Add Microsoft 365 nodes
 
-3. **Configure webhook URL**
-   - Copy the webhook URL from n8n
-   - Add it to your `.env` file
+3. **Configure Webhook URL**
+   - Copy webhook URL from n8n
+   - Add to `.env` file
 
-## 📊 Data Format
+---
 
-The system expects Excel or CSV files with the following columns:
+## 📖 Usage Guide
 
-### Required Columns
-- `effortExpense`: The effort expense value (target column)
-- `effortDate`: Date of the effort entry
-- `effortTimeCosts`: Time-related costs
-- `billingRate_hourlyRate`: Hourly billing rate
+### 1. Upload & Train
 
-### Optional Columns (for better predictions)
-- `msg_JobTitle`: Job title of the user
-- `msg_Community`: Community/team information
-- `taskType`: Type of task
-- `CountryManagerForProject`: Project manager
-- `Email`: User email for notifications
-- `name_P`: Project name
-- `Task Name`: Task name
+1. **Upload Data**
+   - Go to "Upload & Train" tab
+   - Upload Excel/CSV file
+   - Configure effort limit (default: 30 hours)
+   - Set missing value threshold (default: 10%)
 
-### Sample Data Structure
-```csv
-effortDate,effortExpense,effortTimeCosts,billingRate_hourlyRate,msg_JobTitle,Email
-2025-01-15,25.5,127.63,136.55,Consultant,user@company.com
-2025-01-16,,210.36,225.10,Principal Consultant,manager@company.com
-2025-01-17,35.0,150.00,200.00,Senior Consultant,senior@company.com
-```
+2. **Train Model**
+   - Click "Train New Model"
+   - Wait for training to complete (10-30 seconds)
+   - View model performance metrics
 
-## 🔍 Business Rules
+3. **Load Existing Model**
+   - Check "Load Existing Model"
+   - Click "Load Existing Model"
+   - Use previously trained model
 
-The system uses the following business rules for prediction:
+### 2. Analysis
 
-1. **Similar Job Titles**: Use average effort from similar job titles
-2. **Billing Rate Relationship**: Estimate based on cost efficiency ratio
-3. **Historical Averages**: Use monthly/quarterly averages
-4. **Dataset Averages**: Fallback to overall dataset average
-5. **Over-Limit Capping**: Cap predictions at the configured limit
+1. **Select Analysis Type**
+   - Effort Distribution
+   - Missing Data Analysis
+   - Over-Limit Analysis
+   - Time Series Analysis
 
-## 📁 Project Structure
+2. **View Visualizations**
+   - Interactive charts
+   - Statistical summaries
+   - Trend analysis
 
-```
-validation_n8n/
-├── main.py                 # Main application entry point
-├── streamlit_app.py        # Streamlit web application
-├── data_processor.py       # Data processing and prediction logic
-├── microsoft_integration.py # Microsoft 365 Graph API integration
-├── n8n_integration.py      # n8n webhook integration
-├── config.py              # Configuration management
-├── requirements.txt       # Python dependencies
-├── env_example.txt        # Environment variables template
-├── run.bat               # Windows startup script
-├── run.sh                # Linux/Mac startup script
-├── templates/            # Notification templates
-│   ├── email_template.html
-│   └── teams_template.json
-└── README.md             # This file
-```
+### 3. Notifications
 
-## 🛠️ Development
+1. **Configure Notifications**
+   - Enable/disable email notifications
+   - Enable/disable Teams notifications
+   - Set n8n webhook URL
 
-### Adding New Prediction Rules
+2. **Send Notifications**
+   - Review notification preview
+   - Click "Send Notifications"
+   - Monitor delivery status
 
-1. Edit `data_processor.py`
-2. Modify the `_calculate_effort_prediction` method
-3. Add your custom business logic
+### 4. Reports
 
-### Customizing Notifications
+1. **Generate Reports**
+   - Summary Report
+   - Detailed Analysis
+   - Raw Data Export
 
-1. Edit templates in the `templates/` directory
-2. Modify the notification generation methods in `microsoft_integration.py`
+2. **Export Data**
+   - Excel format (.xlsx)
+   - CSV format (.csv)
+   - JSON format (.json)
 
-### Adding New Analysis Types
-
-1. Edit `streamlit_app.py`
-2. Add new analysis functions
-3. Update the analysis tab interface
+---
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
-1. **"No module named 'streamlit'"**
-   - Make sure you've activated the virtual environment
-   - Run `pip install -r requirements.txt`
+**1. "No module named 'streamlit'"**
+```bash
+# Solution: Activate virtual environment
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux/Mac
+pip install -r requirements.txt
+```
 
-2. **Microsoft 365 authentication fails**
-   - Check your tenant ID, client ID, and client secret
-   - Ensure the application has the required permissions
-   - Verify the application is registered in Azure AD
+**2. "Port 8501 already in use"**
+```bash
+# Solution: Kill existing process
+# Windows:
+netstat -ano | findstr :8501
+taskkill /PID <PID_NUMBER> /F
+# Linux/Mac:
+lsof -ti:8501 | xargs kill -9
+```
 
-3. **n8n webhook not working**
-   - Check the webhook URL in your `.env` file
-   - Ensure n8n is running and accessible
-   - Verify the webhook is properly configured in n8n
+**3. "Microsoft 365 authentication fails"**
+- Check tenant ID, client ID, and client secret
+- Ensure application has required permissions
+- Verify application is registered in Azure AD
 
-4. **File upload errors**
-   - Ensure the file is in Excel (.xlsx, .xls) or CSV format
-   - Check that the file contains the required columns
-   - Verify the file is not corrupted
+**4. "File upload errors"**
+- Ensure file is Excel (.xlsx, .xls) or CSV format
+- Check file contains required columns
+- Verify file is not corrupted
+
+**5. "Model training fails"**
+- Ensure sufficient data (minimum 10 rows)
+- Check data quality (missing values < 50%)
+- Verify all required columns are present
 
 ### Logs
 
-Check the `effort_expense_system.log` file for detailed error messages and debugging information.
-
-## 📞 Support
-
-For support and questions:
-
-1. Check the troubleshooting section above
-2. Review the logs in `effort_expense_system.log`
-3. Create an issue in the project repository
-4. Contact your system administrator
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📈 Roadmap
-
-- [ ] Machine learning model integration (optional)
-- [ ] Database integration for data persistence
-- [ ] Advanced reporting features
-- [ ] Multi-language support
-- [ ] API endpoints for external integration
-- [ ] Real-time data processing
-- [ ] Advanced notification scheduling
+Check application logs for detailed error messages:
+```bash
+# View logs
+tail -f effort_expense_system.log
+```
 
 ---
 
-**Made with ❤️ for efficient effort expense management**
+## 📁 Project Structure
+
+```
+tech_interupt_final_project/
+├── main.py                          # Main application entry point
+├── streamlit_app.py                 # Streamlit web application
+├── data_processor.py                # Data processing and ML logic
+├── catboost_model.py                # CatBoost ML model implementation
+├── model_storage.py                 # Model persistence and storage
+├── microsoft_integration.py         # Microsoft 365 integration
+├── n8n_integration.py              # n8n webhook integration
+├── config.py                       # Configuration management
+├── requirements.txt                # Python dependencies
+├── env_example.txt                 # Environment variables template
+├── run.bat                         # Windows startup script
+├── run.sh                          # Linux/Mac startup script
+├── Dockerfile                      # Docker configuration
+├── docker-compose.yml              # Docker Compose configuration
+├── assests/                        # Static assets
+│   └── image.png                   # Logo image
+├── templates/                      # Notification templates
+│   ├── email_template.html         # Email template
+│   └── teams_template.json         # Teams template
+├── catboost_info/                  # CatBoost model files
+├── ML_MODEL_SELECTION_DOCUMENTATION.md  # ML model documentation
+├── ML_PREDICTION_DOCUMENTATION.md       # Prediction documentation
+└── README.md                       # This file
+```
+
+---
+
+## 🤝 Contributing
+
+1. **Fork the repository**
+2. **Create feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Commit changes**
+   ```bash
+   git commit -m "Add amazing feature"
+   ```
+4. **Push to branch**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. **Open Pull Request**
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📞 Support
+
+- **Documentation**: Check this README and code comments
+- **Issues**: Create an issue in the repository
+- **Logs**: Check `effort_expense_system.log` for errors
+- **Contact**: Reach out to the development team
+
+---
+
+## 🚀 Deployment
+
+### Docker Deployment
+
+```bash
+# Build Docker image
+docker build -t ai-data-platform .
+
+# Run container
+docker run -p 8501:8501 ai-data-platform
+```
+
+### Production Deployment
+
+1. **Set up production environment**
+2. **Configure environment variables**
+3. **Set up reverse proxy (nginx)**
+4. **Configure SSL certificates**
+5. **Set up monitoring and logging**
+
+---
+
+## 📈 Roadmap
+
+- [ ] **Database Integration** - PostgreSQL/MongoDB support
+- [ ] **Real-time Processing** - Live data updates
+- [ ] **Advanced ML Models** - Ensemble methods
+- [ ] **API Endpoints** - REST API for external integration
+- [ ] **Multi-language Support** - Internationalization
+- [ ] **Advanced Analytics** - Statistical analysis tools
+- [ ] **Cloud Deployment** - AWS/Azure/GCP support
+- [ ] **Mobile App** - React Native mobile application
+
+---
+
+**Made with ❤️ for intelligent data processing**
+
+---
+
+## 🔗 Links
+
+- **Repository**: https://github.com/ikiru1372k2/tech_interupt_final_project.git
+- **Documentation**: [ML Model Selection](ML_MODEL_SELECTION_DOCUMENTATION.md)
+- **Issues**: [Report Bug](https://github.com/ikiru1372k2/tech_interupt_final_project/issues)
+- **Discussions**: [Community](https://github.com/ikiru1372k2/tech_interupt_final_project/discussions)
+
+---
+
+**⭐ Star this repository if you find it helpful!**
