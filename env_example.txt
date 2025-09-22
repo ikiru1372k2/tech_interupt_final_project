@@ -1,0 +1,11 @@
+# Microsoft 365 Graph API Configuration
+TENANT_ID=your_tenant_id_here
+CLIENT_ID=your_client_id_here
+CLIENT_SECRET=your_client_secret_here
+
+# n8n Configuration
+N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/effort-expense
+
+# Optional: Override default values
+EFFORT_EXPENSE_LIMIT=30
+MISSING_VALUE_THRESHOLD=0.1

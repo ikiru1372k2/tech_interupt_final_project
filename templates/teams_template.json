@@ -1,0 +1,66 @@
+{
+  "@type": "MessageCard",
+  "@context": "http://schema.org/extensions",
+  "themeColor": "0078D4",
+  "summary": "Effort Expense Management Alert",
+  "sections": [
+    {
+      "activityTitle": "📊 Effort Expense Management Alert",
+      "activitySubtitle": "{{alert_subtitle}}",
+      "activityImage": "https://img.icons8.com/color/48/000000/bar-chart.png",
+      "facts": [
+        {
+          "name": "Project",
+          "value": "{{project_name}}"
+        },
+        {
+          "name": "Task",
+          "value": "{{task_name}}"
+        },
+        {
+          "name": "User",
+          "value": "{{user_name}}"
+        },
+        {
+          "name": "Date",
+          "value": "{{effort_date}}"
+        },
+        {
+          "name": "Issue Type",
+          "value": "{{issue_type_text}}"
+        },
+        {
+          "name": "Original Value",
+          "value": "{{original_value}}"
+        },
+        {
+          "name": "Predicted Value",
+          "value": "{{predicted_value}}"
+        },
+        {
+          "name": "Final Value",
+          "value": "{{final_value}}"
+        }
+      ],
+      "markdown": true
+    }
+  ],
+  "potentialAction": [
+    {
+      "@type": "OpenUri",
+      "name": "View Details",
+      "targets": [
+        {
+          "os": "default",
+          "uri": "{{details_url}}"
+        }
+      ]
+    },
+    {
+      "@type": "HttpPOST",
+      "name": "Acknowledge Alert",
+      "target": "{{acknowledge_url}}",
+      "body": "{\"alert_id\": \"{{alert_id}}\", \"acknowledged\": true}"
+    }
+  ]
+}
