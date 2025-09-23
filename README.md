@@ -312,7 +312,7 @@ n8n integration is planned for future releases. Currently, the application focus
 2. **Train Model**
    - Click "Train New Model"
    - Wait for training to complete (10-30 seconds)
-   - View model performance metrics
+   - View model training results
 
 3. **Load Existing Model**
    - Check "Load Existing Model"

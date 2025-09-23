@@ -73,7 +73,7 @@ We evaluated the following ML algorithms:
 | **Memory Usage** | Efficient | Higher memory usage | 🏆 CatBoost |
 | **Hyperparameter Tuning** | Fewer parameters to tune | Many parameters to tune | 🏆 CatBoost |
 | **Overfitting** | Excellent resistance | Good resistance | 🏆 CatBoost |
-| **Accuracy** | High (R² = 0.85+) | High (R² = 0.82+) | 🏆 CatBoost |
+| **Accuracy** | High | High | 🏆 CatBoost |
 
 **Why CatBoost Wins:**
 - **Zero preprocessing**: Handles categorical features natively
@@ -92,7 +92,7 @@ We evaluated the following ML algorithms:
 | **Memory Usage** | Efficient | Very efficient | LightGBM |
 | **Hyperparameter Tuning** | Simple | Moderate complexity | 🏆 CatBoost |
 | **Overfitting** | Excellent resistance | Good resistance | 🏆 CatBoost |
-| **Accuracy** | High (R² = 0.85+) | High (R² = 0.83+) | 🏆 CatBoost |
+| **Accuracy** | High | High | 🏆 CatBoost |
 
 **Why CatBoost Wins:**
 - **Superior categorical handling**: No encoding required
@@ -111,7 +111,7 @@ We evaluated the following ML algorithms:
 | **Memory Usage** | Efficient | High (many trees) | 🏆 CatBoost |
 | **Hyperparameter Tuning** | Simple | Simple | Tie |
 | **Overfitting** | Excellent resistance | Good resistance | 🏆 CatBoost |
-| **Accuracy** | High (R² = 0.85+) | Medium (R² = 0.78+) | 🏆 CatBoost |
+| **Accuracy** | High | Medium | 🏆 CatBoost |
 
 **Why CatBoost Wins:**
 - **Much higher accuracy**: Gradient boosting vs bagging
