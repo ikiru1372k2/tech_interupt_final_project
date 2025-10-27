@@ -58,6 +58,97 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+def advanced_data_viewer(df: pd.DataFrame, key_suffix: str = "", height: int = 400, num_rows: int = None):
+    """
+    Display an advanced Excel-like data viewer with fullscreen capability.
+    
+    Args:
+        df: DataFrame to display
+        key_suffix: Unique key suffix for streamlit widgets
+        height: Height of the viewer
+        num_rows: Number of rows to display (None for all)
+    """
+    if df is None or df.empty:
+        st.info("No data to display")
+        return df
+    
+    # Limit rows if specified
+    display_df = df.head(num_rows) if num_rows else df
+    
+    # Create columns for controls
+    col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
+    
+    with col1:
+        st.caption(f"📊 Displaying {len(display_df)} rows × {len(display_df.columns)} columns")
+    
+    with col2:
+        csv_data = display_df.to_csv(index=False)
+        st.download_button(
+            label="📤 CSV",
+            data=csv_data,
+            file_name=f"data_{key_suffix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+            mime="text/csv",
+            key=f"dl_csv_{key_suffix}"
+        )
+    
+    with col3:
+        from io import BytesIO
+        buffer = BytesIO()
+        with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+            display_df.to_excel(writer, index=False)
+        st.download_button(
+            label="💾 Excel",
+            data=buffer.getvalue(),
+            file_name=f"data_{key_suffix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            key=f"dl_excel_{key_suffix}"
+        )
+    
+    with col4:
+        if st.button("🔍 Fullscreen", key=f"fullscreen_{key_suffix}"):
+            st.session_state[f"fullscreen_{key_suffix}"] = not st.session_state.get(f"fullscreen_{key_suffix}", False)
+    
+    # Column configuration for better Excel-like display
+    column_config = {}
+    
+    # Auto-configure columns based on data types
+    for col in display_df.columns:
+        # Check for boolean type first
+        if display_df[col].dtype == 'bool' or display_df[col].dtype == 'boolean':
+            column_config[col] = st.column_config.CheckboxColumn(col)
+        elif pd.api.types.is_datetime64_any_dtype(display_df[col]):
+            column_config[col] = st.column_config.DatetimeColumn(col)
+        elif pd.api.types.is_numeric_dtype(display_df[col]):
+            # Check if values are all 0 or 1 (likely boolean stored as int)
+            unique_vals = display_df[col].dropna().unique()
+            is_likely_boolean = (
+                len(unique_vals) <= 2 and 
+                all(val in [0, 1, False, True, 0.0, 1.0] for val in unique_vals)
+            )
+            if is_likely_boolean:
+                column_config[col] = st.column_config.CheckboxColumn(col)
+            else:
+                column_config[col] = st.column_config.NumberColumn(
+                    col,
+                    format="%.2f" if display_df[col].dtype == 'float64' else "%d",
+                    width="medium"
+                )
+        else:
+            column_config[col] = st.column_config.TextColumn(col, width="large")
+    
+    # Use data_editor for advanced Excel-like functionality
+    edited_df = st.data_editor(
+        display_df,
+        column_config=column_config,
+        use_container_width=True,
+        hide_index=True,
+        height=height,
+        num_rows="dynamic",
+        key=f"data_editor_{key_suffix}"
+    )
+    
+    return edited_df
+
 def auto_load_saved_model():
     """Automatically load the most recent saved model if available."""
     if 'processor' not in st.session_state:
@@ -1329,9 +1420,13 @@ def notifications_tab(send_emails: bool, send_teams: bool, n8n_webhook: str):
             lambda x: round(x) if pd.notna(x) else x
         )
         
+        # Display columns
+        display_cols = ['user_email', 'project_name', 'task_name', 'effort_date', 
+                       'issue_type', 'predicted_effort', 'absoluted_predicted_effort']
+        
+        # Display notification preview
         st.dataframe(
-            notification_df[['user_email', 'project_name', 'task_name', 'effort_date', 
-                           'issue_type', 'predicted_effort', 'absoluted_predicted_effort']].head(20),
+            notification_df[display_cols],
             use_container_width=True
         )
         

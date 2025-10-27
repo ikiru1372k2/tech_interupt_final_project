@@ -9,13 +9,42 @@ An intelligent data processing platform that uses machine learning to predict ef
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### ⚡ One-Click Launch (Recommended)
 
+The easiest way to get started is using our automated launcher scripts:
+
+**For Windows Users:**
+```cmd
+launch.bat
+```
+
+**For Linux/Mac Users:**
+```bash
+chmod +x launch.sh
+./launch.sh
+```
+
+The launcher will automatically:
+- ✅ Check Python installation
+- ✅ Create virtual environment
+- ✅ Install dependencies
+- ✅ Configure environment
+- ✅ Launch the application
+
+📖 For detailed instructions, see [LAUNCH_GUIDE.md](LAUNCH_GUIDE.md)
+
+---
+
+### 🛠️ Manual Setup
+
+If you prefer to set up manually:
+
+**Prerequisites:**
 - **Python 3.8+** (recommended: Python 3.9 or 3.10)
 - **Git** for cloning the repository
 - **Microsoft 365 Account** (optional, for notifications)
 
-### 1. Clone the Repository
+**1. Clone the Repository**
 
 ```bash
 # Clone the repository
@@ -25,7 +54,7 @@ git clone https://github.com/ikiru1372k2/tech_interupt_final_project.git
 cd tech_interupt_final_project
 ```
 
-### 2. Create Virtual Environment
+**2. Create Virtual Environment**
 
 ```bash
 # Create virtual environment
@@ -38,14 +67,14 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+**3. Install Dependencies**
 
 ```bash
 # Install required packages
 pip install -r requirements.txt
 ```
 
-### 4. Configure Environment
+**4. Configure Environment (Optional)**
 
 ```bash
 # Copy environment template
@@ -69,11 +98,11 @@ MISSING_VALUE_THRESHOLD=0.1
 
 **Note**: You can run the application without configuring Microsoft 365. The ML prediction and data analysis features will work without any external integrations.
 
-### 5. Run the Application
+**5. Run the Application**
 
 ```bash
 # Start the application
-streamlit run .\streamlit_app.py
+streamlit run streamlit_app.py
 ```
 
 The application will be available at: **http://localhost:8501**
