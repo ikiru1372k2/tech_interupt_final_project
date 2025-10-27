@@ -1323,9 +1323,15 @@ def notifications_tab(send_emails: bool, send_teams: bool, n8n_webhook: str):
     if notification_data:
         # Create a DataFrame for display
         notification_df = pd.DataFrame(notification_data)
+        
+        # Add rounded absolute predicted effort column
+        notification_df['absoluted_predicted_effort'] = notification_df['predicted_effort'].apply(
+            lambda x: round(x) if pd.notna(x) else x
+        )
+        
         st.dataframe(
             notification_df[['user_email', 'project_name', 'task_name', 'effort_date', 
-                           'issue_type', 'predicted_effort']].head(20),
+                           'issue_type', 'predicted_effort', 'absoluted_predicted_effort']].head(20),
             use_container_width=True
         )
         
