@@ -1325,7 +1325,7 @@ def notifications_tab(send_emails: bool, send_teams: bool, n8n_webhook: str):
         notification_df = pd.DataFrame(notification_data)
         st.dataframe(
             notification_df[['user_email', 'project_name', 'task_name', 'effort_date', 
-                           'issue_type', 'final_effort']].head(20),
+                           'issue_type', 'predicted_effort']].head(20),
             use_container_width=True
         )
         
