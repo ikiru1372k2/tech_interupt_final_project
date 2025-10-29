@@ -1163,25 +1163,42 @@ def upload_data_tab(effort_limit: int, missing_threshold: float):
                         
                         # Display data preview
                         st.subheader("Prediction Preview")
-                        preview_columns = ['effortDate', 'effortExpense_original', 'effortExpense_predicted', 
+                        preview_columns = ['effortDate', 'updUserOid', 'effortExpense_original', 'effortExpense_predicted', 
                                         'effortExpense_final', 'is_missing_effort', 'is_over_limit']
                         available_columns = [col for col in preview_columns if col in df_predicted.columns]
                         
                         # Show only rows that were actually predicted
-                        predicted_rows = df_predicted[df_predicted['needs_prediction']]
+                        predicted_rows = df_predicted[df_predicted['needs_prediction']].copy()
                         if len(predicted_rows) > 0:
+                            # Rename updUserOid to userid for display
+                            if 'updUserOid' in predicted_rows.columns:
+                                predicted_rows_display = predicted_rows.rename(columns={'updUserOid': 'userid'})
+                                # Update available_columns to include userid instead of updUserOid
+                                display_cols = [col if col != 'updUserOid' else 'userid' for col in available_columns]
+                            else:
+                                predicted_rows_display = predicted_rows
+                                display_cols = available_columns
+                            
                             st.write("**Rows that were predicted (missing or over-limit):**")
                             st.dataframe(
-                                predicted_rows[available_columns],
+                                predicted_rows_display[[col for col in display_cols if col in predicted_rows_display.columns]],
                                 use_container_width=True
                             )
                         else:
                             st.write("**No rows needed prediction - all values are correct!**")
                         
                         # Show all rows for comparison
+                        # Rename updUserOid to userid for display
+                        df_display = df_predicted.copy()
+                        if 'updUserOid' in df_display.columns:
+                            df_display = df_display.rename(columns={'updUserOid': 'userid'})
+                            display_cols = [col if col != 'updUserOid' else 'userid' for col in available_columns]
+                        else:
+                            display_cols = available_columns
+                        
                         st.write("**All rows (for comparison):**")
                         st.dataframe(
-                            df_predicted[available_columns].head(10),
+                            df_display[[col for col in display_cols if col in df_display.columns]].head(10),
                             use_container_width=True
                         )
                         
@@ -1421,7 +1438,7 @@ def notifications_tab(send_emails: bool, send_teams: bool, n8n_webhook: str):
         )
         
         # Display columns
-        display_cols = ['user_email', 'project_name', 'task_name', 'effort_date', 
+        display_cols = ['user_email', 'userid', 'project_name', 'task_name', 'effort_date', 
                        'issue_type', 'predicted_effort', 'absoluted_predicted_effort']
         
         # Display notification preview
@@ -1740,9 +1757,16 @@ def create_summary_report(summary: dict) -> dict:
 
 def create_detailed_analysis_report(df: pd.DataFrame) -> pd.DataFrame:
     """Create detailed analysis report."""
-    return df[['effortDate', 'effortExpense_original', 'effortExpense_predicted', 
+    columns = ['effortDate', 'updUserOid', 'effortExpense_original', 'effortExpense_predicted', 
               'effortExpense_final', 'is_missing_effort', 'is_over_limit', 
-              'msg_JobTitle', 'msg_Community', 'taskType']].copy()
+              'msg_JobTitle', 'msg_Community', 'taskType']
+    # Only include columns that exist in the dataframe
+    available_cols = [col for col in columns if col in df.columns]
+    df_report = df[available_cols].copy()
+    # Rename updUserOid to userid for display
+    if 'updUserOid' in df_report.columns:
+        df_report = df_report.rename(columns={'updUserOid': 'userid'})
+    return df_report
 
 def create_notification_report(notification_data: list) -> pd.DataFrame:
     """Create notification report."""

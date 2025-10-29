@@ -280,6 +280,7 @@ class DataProcessor:
             notification = {
                 'user_email': row.get('Email', ''),
                 'user_name': row.get('keyEffortUser', ''),
+                'userid': row.get('updUserOid', ''),
                 'project_name': row.get('name_P', ''),
                 'task_name': row.get('Task Name', ''),
                 'effort_date': row.get('effortDate', ''),
